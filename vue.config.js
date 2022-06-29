@@ -5,7 +5,7 @@ module.exports = {
   pwa: {
     themeColor: '#ff4444',
     manifestOptions: {
-      background_color: '#FFFFFF'
-    }
-  }
+      background_color: '#FFFFFF',
+    },
+  },
 }

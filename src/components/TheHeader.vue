@@ -21,7 +21,7 @@
   <header class="header header--search" v-else>
     <label class="header-searchbar">
       <i class="mdi mdi-magnify"></i>
-      <input type="text" placeholder="Szukaj..." />
+      <input type="text" placeholder="Szukaj..." v-model.trim="searchStr" />
       <button @click="hideSearchbar" title="Zamknij wyszukiwanie">
         <i class="mdi mdi-close-circle-outline"></i>
       </button>
@@ -47,10 +47,10 @@ export default {
   computed: {
     searchStr: {
       get() {
-        return null
+        return this.$store.state.searchStr
       },
       set(val) {
-        console.log(val)
+        this.$store.commit('setSearch', val)
       },
     },
   },

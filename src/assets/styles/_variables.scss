@@ -1,8 +1,12 @@
-:root {
-  --primary: var(--red);
-  --gray: #52525c;
-  --red: #ff4444;
+$gray: #52525c;
+$red: #ff4444;
 
-  --body-color: var(--gray);
+:root {
+  --primary: #{$red};
+  --primary-dark: #{darken($red, 10%)};
+  --secondary: #{$gray};
+  --secondary-light: #{lighten($gray, 10%)};
+
+  --body-color: var(--secondary);
   --body-bg: #fff;
 }

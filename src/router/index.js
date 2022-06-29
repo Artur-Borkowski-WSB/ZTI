@@ -1,14 +1,22 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Start from '@/views/Start'
+import Notes from '@/views/Notes'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    // path: '/',
+    path: '/todo',
     name: 'Start',
     component: Start,
+  },
+  {
+    // path: '/notatki',
+    path: '/',
+    name: 'Notes',
+    component: Notes,
   },
 ]
 

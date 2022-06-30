@@ -104,6 +104,7 @@ export default {
     },
     pinnedNotes() {
       let list = this.$store.getters.myNotes
+      console.log(this.listKey);
       list = list.filter((item) => item.pin === true)
       return list
     },

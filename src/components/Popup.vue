@@ -51,6 +51,7 @@ export default {
       title: '',
       description: '',
       err: false,
+      pin: false,
     }
   },
   methods: {
@@ -58,6 +59,7 @@ export default {
       this.id = this.$props.item?.id ?? this.$store.state.incrementId
       this.title = this.$props.item?.title ?? ''
       this.description = this.$props.item?.description ?? ''
+      this.pin = this.$props.item?.pin ?? false
     },
     cancel() {
       if (!this.objExists) this.close()
@@ -82,6 +84,7 @@ export default {
           id: this.id,
           title: this.title,
           description: this.description,
+          pin: this.pin,
         })
         this.close()
       }

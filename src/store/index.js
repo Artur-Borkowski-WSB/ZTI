@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -9,6 +10,9 @@ export default new Vuex.Store({
     searchStr: '',
     popup: null,
     incrementId: 1,
+    user: {},
+    city: 'Gdańsk',
+    weather: null,
   },
   mutations: {
     setSearch(state, payload) {
@@ -24,7 +28,7 @@ export default new Vuex.Store({
     },
 
     editNote(state, payload) {
-      let itemId = state.notes.findIndex((item) => item.id === payload.id)
+      const itemId = state.notes.findIndex((item) => item.id === payload.id)
       if (itemId !== -1) state.notes[itemId] = payload
     },
 
@@ -43,6 +47,19 @@ export default new Vuex.Store({
         state.notes = JSON.parse(items)
       }
     },
+
+    setCity(state, payload) {
+      state.city = payload
+    },
+
+    setWeather(state, payload) {
+      state.weather = payload
+    },
+
+    toggleNotePin(state, payload) {
+      const itemId = state.notes.findIndex((item) => item.id === payload)
+      if (itemId !== -1) state.notes[itemId].pin = !state.notes[itemId].pin
+    },
   },
   actions: {
     _addNote({ commit }, payload) {
@@ -60,8 +77,28 @@ export default new Vuex.Store({
       commit('saveNotes')
     },
 
+    _toggleNotePin({ commit }, payload) {
+      commit('toggleNotePin', payload)
+      commit('saveNotes')
+    },
+
     setApp({ commit }) {
       commit('getNotes')
+    },
+
+    async fetchWeather({ commit, state }) {
+      const url =
+        process.env.VUE_APP_API_URL +
+        state.city +
+        process.env.VUE_APP_API_KEY +
+        '&units=metric&lang=pl'
+
+      console.log(url)
+
+      await axios
+        .get(url)
+        .then((resp) => commit('setWeather', resp))
+        .catch((e) => console.error(e))
     },
   },
   getters: {

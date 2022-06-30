@@ -3,9 +3,9 @@
     <button title="Menu" @click="sidebarOpen = true">
       <i class="mdi mdi-menu"></i>
     </button>
-    <h1 class="header-title">
+    <h1 class="header-title" @click="home">
       <img class="header-title-logo" src="@/assets/imgs/logo.svg" alt="LOGO" />
-      ZTI
+      Notatnik
     </h1>
     <transition name="sidebar">
       <nav
@@ -42,6 +42,9 @@ export default {
     hideSearchbar() {
       this.showSearchBar = false
       this.searchStr = ''
+    },
+    home() {
+      if (this.$route.name != 'Start') this.$router.push({ name: 'Start' })
     },
   },
   computed: {

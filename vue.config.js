@@ -3,7 +3,8 @@ module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/zti/' : '/',
 
   pwa: {
-    themeColor: '#ff4444',
+    themeColor: '#FF4444',
+    msTileColor: '#FFFFFF',
     manifestOptions: {
       background_color: '#FFFFFF',
     },

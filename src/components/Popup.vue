@@ -17,19 +17,32 @@
         <p class="popup-actions__errmsg" v-if="err">
           Tytuł nie może być pusty!
         </p>
-        <button class="btn btn-secondary" @click="cancel">Anuluj</button>
-        <button class="btn btn-primary" @click="remove" v-if="objExists">
+        <button class="btn btn-secondary" @click="cancel" title="Anuluj">
+          Anuluj
+        </button>
+        <button
+          class="btn btn-primary"
+          @click="remove"
+          v-if="objExists"
+          title="Usuń"
+        >
           Usuń
         </button>
-        <button class="btn btn-primary" @click="save">Zapisz</button>
+        <button class="btn btn-primary" @click="save" title="Zapisz">
+          Zapisz
+        </button>
       </div>
     </template>
     <template v-else>
       <h2 class="popup-title">{{ $props.item.title }}</h2>
       <p class="popup-text">{{ $props.item.description }}</p>
       <div class="popup-actions">
-        <button class="btn btn-secondary" @click="close">Zamknij</button>
-        <button class="btn btn-primary" @click="edit">Edytuj</button>
+        <button class="btn btn-secondary" @click="close" title="Zamknij">
+          Zamknij
+        </button>
+        <button class="btn btn-primary" @click="edit" title="Edytuj">
+          Edytuj
+        </button>
       </div>
     </template>
   </dialog>
@@ -56,7 +69,7 @@ export default {
   },
   methods: {
     setObject() {
-      this.id = this.$props.item?.id ?? this.$store.state.incrementId
+      this.id = this.$props.item?.id ?? this.$store.state.listKey
       this.title = this.$props.item?.title ?? ''
       this.description = this.$props.item?.description ?? ''
       this.pin = this.$props.item?.pin ?? false

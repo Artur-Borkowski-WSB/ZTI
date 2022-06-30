@@ -9,7 +9,7 @@ export default new Vuex.Store({
     notes: [],
     searchStr: '',
     popup: null,
-    incrementId: 1,
+    listKey: 1,
     user: null,
     city: 'Gdańsk',
     weather: null,
@@ -37,14 +37,17 @@ export default new Vuex.Store({
     },
 
     saveNotes(state) {
-      state.incrementId++
+      state.listKey++
       localStorage.setItem('NoteList', JSON.stringify(state.notes))
+      localStorage.setItem('ListKey', state.listKey)
     },
 
     getNotes(state) {
-      const items = localStorage.getItem('NoteList')
+      const items = localStorage.getItem('NoteList'),
+        key = localStorage.getItem('ListKey')
       if (items) {
         state.notes = JSON.parse(items)
+        state.listKey = parseInt(key)
       }
     },
 

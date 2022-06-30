@@ -9,7 +9,14 @@
         <i class="mdi mdi-key"></i>
         <input type="password" placeholder="Hasło" v-model.trim="pass" />
       </label>
-      <button type="button" class="btn btn-primary" @click="login">Zaloguj się</button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        @click="login"
+        title="Zaloguj się"
+      >
+        Zaloguj się
+      </button>
       <p class="errmsg">{{ errorMsg }}</p>
     </form>
   </main>

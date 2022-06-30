@@ -40,7 +40,7 @@
       </section>
     </article>
     <h3>Twoje przypięte notatki:</h3>
-    <article class="layout-start-notes">
+    <article class="layout-start-notes" :key="listKey">
       <template v-if="pinnedNotes.length">
         <NoteItem v-for="item in pinnedNotes" :key="item.id" :item="item" />
       </template>
@@ -103,10 +103,12 @@ export default {
       return email[0]
     },
     pinnedNotes() {
-      console.log(this.$store.state.incrementId)
       let list = this.$store.getters.myNotes
       list = list.filter((item) => item.pin === true)
       return list
+    },
+    listKey() {
+      return this.$store.state.listKey
     },
   },
   methods: {

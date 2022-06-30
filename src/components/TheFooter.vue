@@ -2,7 +2,7 @@
   <footer class="footer">
     <div></div>
     Artur Borkowski, WSB &copy; 2022
-    <button @click="scrollTop">
+    <button @click="scrollTop" title="Przejdź do góry">
       <i class="mdi mdi-arrow-up-drop-circle"></i>
     </button>
   </footer>

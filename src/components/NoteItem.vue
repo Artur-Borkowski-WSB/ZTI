@@ -2,7 +2,11 @@
   <article class="layout-notes-item" @click="showItem">
     <h2 class="layout-notes-item-title">
       {{ item.title }}
-      <button class="btn btn-secondary" @click.stop="togglePin">
+      <button
+        class="btn btn-secondary"
+        @click.stop="togglePin"
+        :title="item.pin ? 'Odepnij' : 'Przypnij'"
+      >
         <i class="mdi" :class="item.pin ? 'mdi-pin-off' : 'mdi-pin'"></i>
       </button>
     </h2>

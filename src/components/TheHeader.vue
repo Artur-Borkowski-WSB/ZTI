@@ -1,5 +1,5 @@
 <template>
-  <header class="header" v-if="!showSearchBar || $route.name == 'Login'">
+  <header class="header" v-if="!showSearchBar || $route.name === 'Login'">
     <button title="Menu" @click="sidebarOpen = true">
       <i class="mdi mdi-menu"></i>
     </button>
@@ -8,8 +8,13 @@
       Notatnik
     </h1>
     <transition name="sidebar">
-      <nav class="header-nav" v-show="sidebarOpen" @click="sidebarOpen = false">
+      <nav class="header-nav" v-show="sidebarOpen">
         <ul>
+          <li>
+            <button @click="sidebarOpen = false" title="Zamknij">
+              <i class="mdi mdi-close"></i>
+            </button>
+          </li>
           <li>
             <router-link :to="{ name: 'Start' }">Start</router-link>
           </li>
@@ -68,6 +73,14 @@ export default {
       set(val) {
         this.$store.commit('setSearch', val)
       },
+    },
+    routeName() {
+      return this.$route.name
+    },
+  },
+  watch: {
+    routeName() {
+      this.sidebarOpen = false
     },
   },
 }

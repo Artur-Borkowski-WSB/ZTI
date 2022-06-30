@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/zti/precache-manifest.39bee9d3ffd3742378f91618f357db8e.js"
+  "/zti/precache-manifest.060db968d0314b981b8c5c751947a9ce.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "zti"});

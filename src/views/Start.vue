@@ -3,10 +3,20 @@
     <article class="layout-start-hello">
       <section class="layout-start-hello-item">
         <h2>Witaj {{ username }}!</h2>
-        <button class="btn btn-primary" title="Zaloguj się" v-if="!user.email">
+        <button
+          class="btn btn-primary"
+          title="Zaloguj się"
+          v-if="!user"
+          @click="login"
+        >
           Zaloguj się
         </button>
-        <button class="btn btn-primary" title="Wyloguj się" v-else>
+        <button
+          class="btn btn-primary"
+          title="Wyloguj się"
+          v-else
+          @click="logout"
+        >
           Wyloguj się
         </button>
       </section>
@@ -87,7 +97,10 @@ export default {
       return this.$store.state.user
     },
     username() {
-      return 'Niezalogowany'
+      let email = this.user
+      if (!email) return 'Niezalogowany'
+      email = email.split('@')
+      return email[0]
     },
     pinnedNotes() {
       console.log(this.$store.state.incrementId)
@@ -108,6 +121,12 @@ export default {
       } finally {
         this.isLoading = false
       }
+    },
+    login() {
+      this.$router.push({ name: 'Login' })
+    },
+    logout() {
+      this.$store.commit('setUser', null)
     },
   },
   async mounted() {

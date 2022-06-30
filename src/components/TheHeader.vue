@@ -1,5 +1,5 @@
 <template>
-  <header class="header" v-if="!showSearchBar">
+  <header class="header" v-if="!showSearchBar || $route.name == 'Login'">
     <button title="Menu" @click="sidebarOpen = true">
       <i class="mdi mdi-menu"></i>
     </button>
@@ -8,18 +8,31 @@
       Notatnik
     </h1>
     <transition name="sidebar">
-      <nav
-        class="header-nav"
-        v-show="sidebarOpen"
-        @click="sidebarOpen = false"
-      ></nav>
+      <nav class="header-nav" v-show="sidebarOpen" @click="sidebarOpen = false">
+        <ul>
+          <li>
+            <router-link :to="{ name: 'Start' }">Start</router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'Notes' }">Notes</router-link>
+          </li>
+          <li v-if="!$store.state.user">
+            <router-link :to="{ name: 'Login' }">Zaloguj się</router-link>
+          </li>
+        </ul>
+      </nav>
     </transition>
-    <button title="Szukaj" @click="showSearchBar = true">
+    <button
+      title="Szukaj"
+      @click="showSearchBar = true"
+      v-if="$route.name !== 'Login'"
+    >
       <i class="mdi mdi-magnify"></i>
     </button>
+    <div class="fill" v-else></div>
   </header>
   <header class="header header--search" v-else>
-    <label class="header-searchbar">
+    <label class="primary-input">
       <i class="mdi mdi-magnify"></i>
       <input type="text" placeholder="Szukaj..." v-model.trim="searchStr" />
       <button @click="hideSearchbar" title="Zamknij wyszukiwanie">

@@ -10,7 +10,7 @@ export default new Vuex.Store({
     searchStr: '',
     popup: null,
     incrementId: 1,
-    user: {},
+    user: null,
     city: 'Gdańsk',
     weather: null,
   },
@@ -60,6 +60,10 @@ export default new Vuex.Store({
       const itemId = state.notes.findIndex((item) => item.id === payload)
       if (itemId !== -1) state.notes[itemId].pin = !state.notes[itemId].pin
     },
+
+    setUser(state, payload) {
+      state.user = payload
+    },
   },
   actions: {
     _addNote({ commit }, payload) {
@@ -92,8 +96,6 @@ export default new Vuex.Store({
         state.city +
         process.env.VUE_APP_API_KEY +
         '&units=metric&lang=pl'
-
-      console.log(url)
 
       await axios
         .get(url)

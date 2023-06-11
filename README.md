@@ -1,35 +1,24 @@
-# vue-project
+# Notatnik Vue
 
-This template should help get you started developing with Vue 3 in Vite.
+Projekt to prosta aplikacja notatnika napisana we Vue 3 przy użyciu Composition API. Strona posiada podstawowy routing:
+Strona główna wyświetla przypięte notatki oraz pogodę domyślnie dla miejscowości Gdańsk (API OpenWeather).
+Strona "notes" wyświetla wszystkie notatki oraz umożliwia dodanie nowych. Notatka składa się z tytułu oraz opcjonalnego opisu, a notatkę można też przypiąć. Notatki zapisują się w localStorage, więc po odświeżeniu strony czy wyjściu z niej nie powinny znikać.
+Strona logowania to tylko strona z walidatorem email i hasła. Nie ma żadnego związku z logowaniem. Jeśli email będzie poprawny, a hasło spełni założenia (min. 8 znaków, 1 litera mała, 1 litera duża, 1 cyfra, 1 znak specjalny), użytkownik zostanie "zalogowany", czyli zostanie przekierowany do strony głównej, gdzie wyświetli się jego nazwa.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+### Instalacja projektu
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Serwer dewoloperski
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Kompilacja i minifikacja do wersji produkcyjnej
 
 ```sh
 npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```

@@ -1,87 +1,88 @@
+<script setup>
+  import { ref, computed, watch } from 'vue'
+  import { useRoute } from 'vue-router'
+  import { storeToRefs } from 'pinia'
+  import { useStore } from '@/stores/store'
+
+  const route = useRoute()
+  const store = useStore()
+
+  const loginPage = computed(() => route.name === 'Login')
+
+  const sidebarOpen = ref(false)
+  watch(
+    () => route.name,
+    () => {
+      sidebarOpen.value = false
+    }
+  )
+
+  const showSearchBar = ref(false)
+  const { searchValue, loggedUser } = storeToRefs(store)
+  const { setSearch } = store
+
+  const searchStr = computed({
+    get() {
+      return searchValue.value
+    },
+    set(val) {
+      setSearch(val)
+    },
+  })
+
+  const hideSearchBar = () => {
+    showSearchBar.value = false
+    searchStr.value = ''
+  }
+</script>
+
 <template>
-  <header class="header" v-if="!showSearchBar || $route.name === 'Login'">
+  <header v-if="!showSearchBar || loginPage" class="header">
     <button title="Menu" @click="sidebarOpen = true">
       <i class="mdi mdi-menu"></i>
     </button>
-    <h1 class="header-title" @click="home">
-      <img class="header-title-logo" src="@/assets/imgs/logo.svg" alt="LOGO" />
-      Notatnik
-    </h1>
+    <RouterLink v-slot="{ navigate }" :to="{ name: 'Start' }" custom>
+      <h1 class="header-title" @click="navigate">
+        <img
+          class="header-title-logo"
+          src="@/assets/imgs/logo.svg"
+          alt="LOGO"
+        />
+        Notatnik
+      </h1>
+    </RouterLink>
     <transition name="sidebar">
-      <nav class="header-nav" v-show="sidebarOpen">
+      <nav v-show="sidebarOpen" class="header-nav">
         <ul>
           <li>
-            <button @click="sidebarOpen = false" title="Zamknij">
+            <button title="Zamknij" @click="sidebarOpen = false">
               <i class="mdi mdi-close"></i>
             </button>
           </li>
           <li>
-            <router-link :to="{ name: 'Start' }">Start</router-link>
+            <RouterLink :to="{ name: 'Start' }">Start</RouterLink>
           </li>
           <li>
-            <router-link :to="{ name: 'Notes' }">Notes</router-link>
+            <RouterLink :to="{ name: 'Notes' }">Notes</RouterLink>
           </li>
-          <li v-if="!$store.state.user">
-            <router-link :to="{ name: 'Login' }">Zaloguj się</router-link>
+          <li v-if="!loggedUser">
+            <RouterLink :to="{ name: 'Login' }">Zaloguj się</RouterLink>
           </li>
         </ul>
       </nav>
     </transition>
-    <button
-      title="Szukaj"
-      @click="showSearchBar = true"
-      v-if="$route.name !== 'Login'"
-    >
+    <button v-if="!loginPage" title="Szukaj" @click="showSearchBar = true">
       <i class="mdi mdi-magnify"></i>
     </button>
-    <div class="fill" v-else></div>
+    <div v-else class="fill"></div>
   </header>
-  <header class="header header--search" v-else>
+  <header v-else class="header header--search">
     <label class="primary-input">
       <i class="mdi mdi-magnify"></i>
-      <input type="text" placeholder="Szukaj..." v-model.trim="searchStr" />
-      <button @click="hideSearchbar" title="Zamknij wyszukiwanie">
+      <input v-model.trim="searchStr" type="text" placeholder="Szukaj..." />
+      <button title="Zamknij wyszukiwanie" @click="hideSearchBar">
         <i class="mdi mdi-close-circle-outline"></i>
       </button>
     </label>
   </header>
 </template>
-
-<script>
-export default {
-  name: 'Header',
-  data() {
-    return {
-      sidebarOpen: false,
-      showSearchBar: false,
-    }
-  },
-  methods: {
-    hideSearchbar() {
-      this.showSearchBar = false
-      this.searchStr = ''
-    },
-    home() {
-      if (this.$route.name != 'Start') this.$router.push({ name: 'Start' })
-    },
-  },
-  computed: {
-    searchStr: {
-      get() {
-        return this.$store.state.searchStr
-      },
-      set(val) {
-        this.$store.commit('setSearch', val)
-      },
-    },
-    routeName() {
-      return this.$route.name
-    },
-  },
-  watch: {
-    routeName() {
-      this.sidebarOpen = false
-    },
-  },
-}
-</script>

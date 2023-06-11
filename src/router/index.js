@@ -1,33 +1,28 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Start from '@/views/Start'
-import Notes from '@/views/Notes'
-import Login from '@/views/Login'
+import { createRouter, createWebHistory } from 'vue-router'
 
-Vue.use(VueRouter)
+import StartView from '@/views/StartView.vue'
+import NotesView from '@/views/NotesView.vue'
+import LoginView from '@/views/LoginView.vue'
 
-const routes = [
-  {
-    path: '/',
-    name: 'Start',
-    component: Start,
-  },
-  {
-    path: '/notatki',
-    name: 'Notes',
-    component: Notes,
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login,
-  },
-]
-
-const router = new VueRouter({
-  mode: 'hash',
-  base: process.env.BASE_URL,
-  routes,
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'Start',
+      component: StartView,
+    },
+    {
+      path: '/notatki',
+      name: 'Notes',
+      component: NotesView,
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: LoginView,
+    },
+  ],
 })
 
 export default router
